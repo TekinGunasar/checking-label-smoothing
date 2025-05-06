@@ -82,11 +82,41 @@ def load_FASHION_MNIST():
     train_set = torchvision.datasets.FashionMNIST(
         root=data_dir,
         train=True,
-        download=False,  
+        download=False,
         transform=transform
     )
 
     test_set = torchvision.datasets.FashionMNIST(
+        root=data_dir,
+        train=False,
+        download=False,
+        transform=transform
+    )
+
+    X_train = torch.stack([x[0] for x in train_set])
+    y_train = torch.tensor([x[1] for x in train_set], dtype=torch.long)
+
+    X_test = torch.stack([x[0] for x in test_set])
+    y_test = torch.tensor([x[1] for x in test_set], dtype=torch.long)
+
+    return X_train, y_train, X_test, y_test
+
+
+def load_MNIST():
+    data_dir = 'Datasets/MNIST/'
+
+    transform = transforms.Compose([
+        transforms.ToTensor()
+    ])
+
+    train_set = torchvision.datasets.MNIST(
+        root=data_dir,
+        train=True,
+        download=False,
+        transform=transform
+    )
+
+    test_set = torchvision.datasets.MNIST(
         root=data_dir,
         train=False,
         download=False,

@@ -60,7 +60,7 @@ def train_standard_model(n_epochs, base_model,loader,lr=1e-4, n_classes=10,loss_
             optimizer.zero_grad()
 
             if loss_fn:
-                loss = loss_fn(logits,y_onehot)
+                loss = loss_fn(logits,y)
             else:
                 loss = -(y_onehot * log_probs).sum(dim = 1).mean()
 
@@ -69,6 +69,8 @@ def train_standard_model(n_epochs, base_model,loader,lr=1e-4, n_classes=10,loss_
             optimizer.step()
 
     return model
+
+
 
 # Evaluation
 def get_test_acc(model,loader):
